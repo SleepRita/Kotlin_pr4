@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Kotlin_pr4</string>
+    <string name="shot">Make a shot</string>
+    <string name="look_shot">List of shots</string>
+    <!-- Strings used for fragments for navigation -->
+
+</resources>
