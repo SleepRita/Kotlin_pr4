@@ -9,8 +9,6 @@ import java.io.BufferedReader
 import java.io.File
 import java.io.FileInputStream
 import java.io.InputStreamReader
-import kotlin.collections.listOf
-import kotlin.collections.listOf as listOf1
 
 class ActivityDate : AppCompatActivity() {
 
@@ -22,7 +20,7 @@ class ActivityDate : AppCompatActivity() {
         binding = ActivityDateBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val file = File("/photos/date.txt")
+        val file = File(applicationContext.filesDir, "/photos/date.txt")
         val inputStream = FileInputStream(file)
         val bufferedReader = BufferedReader(InputStreamReader(inputStream))
         val data = mutableListOf<String>()

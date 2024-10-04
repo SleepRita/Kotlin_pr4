@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.Preview
@@ -13,6 +14,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.kotlin_pr4.databinding.ActivityMainBinding
 import java.io.File
+import java.nio.file.Paths
 import java.text.DateFormat
 import java.util.Date
 import java.util.concurrent.ExecutorService
@@ -21,7 +23,6 @@ import java.util.concurrent.Executors
 class MainActivity : AppCompatActivity() {
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var viewFinder: PreviewView
-    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,23 +35,19 @@ class MainActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
         }
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        // Получение корневого представления разметки
-        val view = binding.root
-        // Установка корневого представления разметки в качестве контента активности
-        setContentView(view)
-
-        val dir = File("photos")
-        dir.mkdir()
+        val dir = File(applicationContext.filesDir, "photos")
+        dir.mkdirs()
         val file = File(dir, "date.txt")
         file.createNewFile()
 
-        binding.button.setOnClickListener{
-            val file = File("date.txt")
-            file.appendText(DateFormat.getDateTimeInstance().format(Date()))
+        val button : Button = findViewById(R.id.button)
+        button.setOnClickListener{
+            val file = File(applicationContext.filesDir, "/photos/date.txt")
+            file.appendText(DateFormat.getDateTimeInstance().format(Date()) + "\n")
         }
 
-        binding.button2.setOnClickListener{
+        val button2 : Button = findViewById(R.id.button2)
+        button2.setOnClickListener{
             val intent = Intent(this@MainActivity, ActivityDate::class.java)
             startActivity(intent)
         }
